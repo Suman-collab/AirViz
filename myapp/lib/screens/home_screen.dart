@@ -37,7 +37,37 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final weatherProvider = Provider.of<WeatherProvider>(context);
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient:_weather !=null && _weather!.description.toLowerCase().contains('rain')
+            ? const LinearGradient(
+            colors: [Colors.grey,Colors.limeAccent],
+            begin: Alignment.topCenter,
+            end: Alignment.center,
+            )
+            : _weather !=null && _weather!.description.toLowerCase().contains('clear')
+            ? const LinearGradient(
+            colors: [Colors.black,Colors.redAccent],
+            begin: Alignment.center,
+            end: Alignment.topLeft,
+            )
+            :  const LinearGradient(
+            colors: [Colors.lightBlueAccent,Colors.deepOrangeAccent],
+            begin: Alignment.bottomRight,
+            end: Alignment.centerRight,
+            ) 
+          
+        ),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+          ),
+        ),
+        ),
+    )
 
     return Scaffold(
       appBar: AppBar(title: Text('Weather Forecast')),
