@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/models/weather_model.dart';
 import 'package:provider/provider.dart';
 import '../providers/weather_provider.dart';
 
@@ -6,11 +7,33 @@ class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState()=>_HomeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final TextEditingController _cityController = TextEditingController();
+  final weatherservices _weatherservices = WeatherServices();
+
+  final TextEditingController _controller = TextEditingController();
+  _isloading = false;
+  Weather? _weather;
+  void _getweather() async {
+    setState(() {
+      _isloading = true;
+    });
+    try{
+
+      final Weather = await _weatherservices.featchweather(_controller.text);
+      setState(() {
+        _weather=weather;
+        _isloading=false;
+      });
+    }
+    catch(e){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('error fetching weather data')),
+        );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
