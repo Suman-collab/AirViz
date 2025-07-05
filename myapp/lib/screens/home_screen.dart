@@ -91,7 +91,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           borderSide: BorderSide.none
                         )
                       ),
-                    )
+                    ),
+                    const SizedBox(height: 25,),
+                    ElevatedButton(
+                      onPressed: _getweather, 
+                      child: Text('get weather',style: TextStyle(
+                        fontSize: 20,
+                        sty),) 
+                      )
               ],
             ),
           ),
