@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/models/weather_model.dart';
-import 'package:provider/provider.dart';
-import '../providers/weather_provider.dart';
+import 'package:myapp/services/weatherservices.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,10 +10,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final weatherservices _weatherservices = WeatherServices();
+  final WeatherApiService _weatherservices = WeatherApiService();
 
   final TextEditingController _controller = TextEditingController();
-  _isloading = false;
+  bool _isloading = false;
   Weather? _weather;
   void _getweather() async {
     setState(() {
@@ -22,9 +21,9 @@ class _HomeScreenState extends State<HomeScreen> {
     });
     try{
 
-      final Weather = await _weatherservices.featchweather(_controller.text);
+      final Weather = await _weatherservices.fetchWeather(_controller.text);
       setState(() {
-        _weather= weather;
+        _weather= Weather;
         _isloading=false;
       });
     }
@@ -50,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
             )
             : _weather !=null && _weather!.description.toLowerCase().contains('clear')
             ? const LinearGradient(
-            colors: [Colors.black,Colors.redAccent],
+            colors: [Colors.black,Color.fromARGB(255, 28, 27, 27)],
             begin: Alignment.center,
             end: Alignment.topLeft,
             )
